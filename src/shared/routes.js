@@ -1,15 +1,15 @@
-import Home from './Home';
-import Grid from './Grid';
-import { fetchByCategoryName } from './bistro';
+import { fetchPosts } from './actions/postActions';
+import { fetchUsers } from './actions/userActions';
 
 const routes =  [{
     path: '/',
     exact: true,
-    component: Home,
+    component: 'Users',
+    fetchData: (path = '') => fetchUsers(path.split('/').pop())
 },{
-    path: '/:categoryName',
-    component: Grid,
-    fetchInitialData: (path = '') => fetchByCategoryName(path.split('/').pop())
+    path: '/posts',
+    component: 'Posts',
+    fetchData: (path = '') => fetchPosts(path.split('/').pop())
 }];
 
 export default routes;

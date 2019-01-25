@@ -1,8 +1,8 @@
 import React from 'react';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom'; //matchPath, 
-//import routes from '../shared/routes';
+import { matchPath, StaticRouter } from 'react-router-dom'; 
+import routes from '../shared/routes';
 
 import App from '../shared/App';
 
@@ -11,23 +11,21 @@ const server = express();
 server.use(express.static(__dirname + '/public'));
 
 server.get('*', (request,response) => {
-
-
     response.header('Access-Control-Allow-Origin', '*');
 
-    // const activeRoute = routes.find((route) => matchPath(request.url, route)) || {};
+    const activeRoute = routes.find((route) => matchPath(request.url, route)) || {};
 
-    // const initialDataPromise = activeRoute.fetchInitialData
-    //     ? activeRoute.fetchInitialData(request.path)
-    //     : Promise.resolve();
+    const initialDataPromise = activeRoute.fetchData
+        ? activeRoute.fetchData(request.path)
+        : Promise.resolve();
 
-    // initialDataPromise.then((data) => {
+    initialDataPromise.then((data) => {
 
-    //     const items = data;
+        let respond = {payload: data, componentToRender: activeRoute.component};
 
         const app = renderToString(
             <StaticRouter location={request.url} context={{}}>
-                <App />
+                 <App data={respond}/> 
             </StaticRouter>
         );
 
@@ -37,21 +35,15 @@ server.get('*', (request,response) => {
                 <meta charset="UTF-8" />
                 <title>Document</title>
                 <script src="/bundle.js" defer></script>
-                <script>window.__INITIAL_DATA__ = ${{}}</script>
+                <script>window.__INITIAL_DATA__ = ${JSON.stringify(respond)}</script>    
             </head>
             <body>
                 <div id="app">${app}</div>
             </body>
             </html>
         `;
-
         response.status(200).send(page).end();
-
-
-    // });
-
-
-
+    });
 });
 
 server.listen(3000, () => console.log('Server listening on port 3000'));
