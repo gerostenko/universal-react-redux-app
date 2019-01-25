@@ -1,0 +1,48 @@
+{
+  "name": "gecaos-blog",
+  "version": "0.1.0",
+  "description": "gecaos blog",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "node test/jasmine.js",
+    "prebuild": "mkdir -p dist && touch dist/server.js",
+    "build": "webpack --mode development",
+    "watch:build": "webpack -w --mode development",
+    "watch:serve": "nodemon",
+    "watch:test": "run-when-changed --watch 'src/**/*.js' --exec 'npm test' --watch 'test/**/*.spec.js' --exec 'node test/jasmine.js %s'",
+    "start": "npm run prebuild && concurrently --raw --kill-others 'npm:watch:test' 'npm:watch:build' 'npm:watch:serve'"
+  },
+  "author": "Galina Erostenko",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
+    "concurrently": "^4.1.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "eslint": "^5.10.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "isomorphic-fetch": "^2.2.1",
+    "jasmine": "^3.3.1",
+    "jasmine-console-reporter": "^3.1.0",
+    "jasmine-enzyme": "^7.0.1",
+    "jasmine-junit-reporter": "0.0.2",
+    "jsdom": "^13.1.0",
+    "nodemon": "^1.18.7",
+    "run-when-changed": "^2.1.0",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
