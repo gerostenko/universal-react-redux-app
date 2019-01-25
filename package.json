@@ -4,13 +4,13 @@
   "description": "gecaos blog",
   "main": "dist/server.js",
   "scripts": {
-    "test": "node test/jasmine.js",
+    "test": "jest",
     "prebuild": "mkdir -p dist && touch dist/server.js",
     "build": "webpack --mode development",
-    "watch:build": "webpack -w --mode development",
-    "watch:serve": "nodemon",
-    "watch:test": "run-when-changed --watch 'src/**/*.js' --exec 'npm test' --watch 'test/**/*.spec.js' --exec 'node test/jasmine.js %s'",
-    "start": "npm run prebuild && concurrently --raw --kill-others 'npm:watch:test' 'npm:watch:build' 'npm:watch:serve'"
+    "build:w": "webpack -w --mode development",
+    "serve:w": "nodemon",
+    "test:w": "jest --watch",
+    "start": "npm run prebuild && concurrently --raw --kill-others 'npm run test:w' 'npm:build:w' 'npm:serve:w'"
   },
   "author": "Galina Erostenko",
   "license": "MIT",
@@ -30,19 +30,22 @@
     "concurrently": "^4.1.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
+    "enzyme-to-json": "^3.3.5",
     "eslint": "^5.10.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-react": "^7.11.1",
     "isomorphic-fetch": "^2.2.1",
-    "jasmine": "^3.3.1",
-    "jasmine-console-reporter": "^3.1.0",
-    "jasmine-enzyme": "^7.0.1",
-    "jasmine-junit-reporter": "0.0.2",
-    "jsdom": "^13.1.0",
+    "jest": "^24.0.0",
     "nodemon": "^1.18.7",
     "run-when-changed": "^2.1.0",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-node-externals": "^1.7.2"
+  },
+  "jest": {
+    "setupFilesAfterEnv": ["<rootDir>__tests__/setup/setupEnzyme.js"],
+    "testPathIgnorePatterns": [
+      "<rootDir>/__tests__/setup/"
+    ]
   }
 }
