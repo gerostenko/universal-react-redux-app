@@ -7,10 +7,9 @@ import PageNotFound from './components/PageNotFound';
 class App extends Component {
     constructor(props){
         super(props);
-        this.createComponent = this.createComponent.bind(this);
     }
 
-    createComponent() {
+    createComponent = () => {
         let payload = this.props.data.payload;
         switch(this.props.data.componentToRender) {
             case 'Users':
