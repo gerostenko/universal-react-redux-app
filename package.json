@@ -9,7 +9,7 @@
     "build": "webpack --mode development",
     "build:w": "webpack -w --mode development",
     "serve:w": "nodemon",
-    "test:w": "jest --watch",
+    "test:w": "run-when-changed --watch 'src/**/*.js' --exec 'npm test' --watch '__tests__/**/*.test.js' --exec 'jest %s'",
     "start": "npm run prebuild && concurrently --raw --kill-others 'npm run test:w' 'npm:build:w' 'npm:serve:w'"
   },
   "author": "Galina Erostenko",
