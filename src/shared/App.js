@@ -3,6 +3,7 @@ import React, { Component }  from 'react';
 import Users from './components/Users';
 import Posts from './components/Posts';
 import PageNotFound from './components/PageNotFound';
+import homepageStyles from './app.scss';
 
 class App extends Component {
     constructor(props){
@@ -24,6 +25,9 @@ class App extends Component {
     render() {
         return (
             <div>
+                <div className={ homepageStyles.component }>
+                    <p>Testing the SASS</p>
+                </div>
                 { this.createComponent() }
             </div>
         );

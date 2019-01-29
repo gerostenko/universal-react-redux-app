@@ -23,6 +23,26 @@ var browserConfig = {
                     failOnError: true,
                     failOnWarning: true
                 }
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            importLoaders: 1,
+                            localIdentName: '[name]__[local]___[hash:base64:5]',
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'sass-loader'
+                    }
+                ]
             }
         ]
     },
@@ -55,7 +75,27 @@ var serverConfig = {
                     failOnError: true,
                     failOnWarning: true
                 }
-            }
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                        {
+                            loader: 'isomorphic-style-loader',
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true,
+                                importLoaders: 1,
+                                localIdentName: '[name]__[local]___[hash:base64:5]',
+                                sourceMap: true
+                        }
+                    },
+                        {           
+                            loader: 'sass-loader'
+                    }
+                ]
+        }    
         ]
     },
     stats: 'errors-only',
