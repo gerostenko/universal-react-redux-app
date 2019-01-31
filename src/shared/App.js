@@ -1,34 +1,31 @@
 import React, { Component }  from 'react';
-
-import Users from './components/Users';
-import Posts from './components/Posts';
 import PageNotFound from './components/PageNotFound';
 import homepageStyles from './app.scss';
+import { Link, Route, Switch } from 'react-router-dom';
+import routes from './routes';
 
 class App extends Component {
     constructor(props){
         super(props);
     }
 
-    createComponent = () => {
-        let payload = this.props.data.payload;
-        switch(this.props.data.componentToRender) {
-            case 'Users':
-                return <Users users={payload}/>;
-            case 'Posts':
-                return <Posts posts={payload}/>;
-            default:
-                return <PageNotFound />;
-        }
-    }
-
     render() {
+          
         return (
             <div>
                 <div className={ homepageStyles.component }>
                     <p>Testing the SASS</p>
                 </div>
-                { this.createComponent() }
+                <nav>
+                    <ul>
+                        <li><Link to='/'>Users</Link></li>
+                        <li><Link to='/posts'>Posts</Link></li>
+                    </ul>
+                </nav>
+                <Switch>
+                    {routes.map((route, index) => <Route key={index} exact={route.exact} path={route.path} render={() => (<route.component data={this.props.data.payload}/>)} />)}
+                    <Route path='*' exact={true} component={PageNotFound} />
+                </Switch>
             </div>
         );
     }
