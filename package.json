@@ -39,6 +39,7 @@
     "isomorphic-fetch": "^2.2.1",
     "isomorphic-style-loader": "^4.0.0",
     "jest": "^24.0.0",
+    "jest-transform-css": "^2.0.0",
     "node-sass": "^4.11.0",
     "nodemon": "^1.18.7",
     "run-when-changed": "^2.1.0",
@@ -54,6 +55,10 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/__tests__/setup/"
-    ]
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      ".+\\.(css|styl|less|sass|scss)$": "jest-transform-css"
+    }
   }
 }
