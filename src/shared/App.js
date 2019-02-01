@@ -10,7 +10,7 @@ class App extends Component {
     }
 
     render() {
-          
+       
         return (
             <div>
                 <div className={ homepageStyles.component }>
@@ -23,7 +23,7 @@ class App extends Component {
                     </ul>
                 </nav>
                 <Switch>
-                    {routes.map((route, index) => <Route key={index} exact={route.exact} path={route.path} render={() => (<route.component data={this.props.data.payload}/>)} />)}
+                    {routes.map((route, index) => <Route key={index} exact={route.exact} path={route.path} render={() => (<route.component data={this.props.data}/>)} />)}
                     <Route path='*' exact={true} component={PageNotFound} />
                 </Switch>
             </div>

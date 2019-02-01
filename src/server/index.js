@@ -20,9 +20,7 @@ server.get('*', (request,response) => {
         : Promise.resolve();
 
     initialDataPromise.then((data) => {
-
-        let respond = {payload: data, componentToRender: activeRoute.component};
-
+       let respond = {payload: data, type: activeRoute.componentName };
         const app = renderToString(
             <StaticRouter location={request.url} context={{}}>
                  <App data={respond}/> 

@@ -7,10 +7,12 @@ const routes =  [{
     path: '/',
     exact: true,
     component: Users,
+    componentName: 'Users',
     fetchData: (path = '') => fetchUsers(path.split('/').pop())
 },{
     path: '/posts',
     component: Posts,
+    componentName: 'Posts',
     fetchData: (path = '') => fetchPosts(path.split('/').pop())
 }];
 
