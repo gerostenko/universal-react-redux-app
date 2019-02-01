@@ -42,6 +42,8 @@
     "jest-transform-css": "^2.0.0",
     "node-sass": "^4.11.0",
     "nodemon": "^1.18.7",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
     "run-when-changed": "^2.1.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",

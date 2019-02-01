@@ -3,6 +3,8 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 import { matchPath, StaticRouter } from 'react-router-dom'; 
 import routes from '../shared/routes';
+import { Provider } from 'react-redux';
+import store from '../shared/stores/configureStore';
 
 import App from '../shared/App';
 
@@ -21,9 +23,14 @@ server.get('*', (request,response) => {
 
     initialDataPromise.then((data) => {
        let respond = {payload: data, type: activeRoute.componentName };
+       //console.log('dispatch users');
+       //store.dispatch({type: 'FETCH_POSTS', data: [1, 2, 3]});
+       
         const app = renderToString(
             <StaticRouter location={request.url} context={{}}>
-                 <App data={respond}/> 
+                <Provider store={store}>
+                    <App data={respond}/> 
+                </Provider>
             </StaticRouter>
         );
 

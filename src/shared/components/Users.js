@@ -1,5 +1,5 @@
 import React from 'react';
-import {fetchUsers} from '../actions/userActions';
+//import {fetchUsers} from '../actions/userActions';
 
 class Users extends React.Component {
     constructor(props) {
@@ -10,23 +10,24 @@ class Users extends React.Component {
        
     }
 
-    componentDidMount() {
-        if (this.props.data.type !== 'Users') {
-            fetchUsers().then(response => {
-                this.setState({
-                    payload: response
-                });
-            });
-        }
-        else {
-            this.setState({
-                payload: this.props.data.payload
-            });
-        }
-    }
+    // componentDidMount() {
+    //     if (this.props.data.type !== 'Users') {
+    //         fetchUsers().then(response => {
+    //             this.setState({
+    //                 payload: response
+    //             });
+    //         });
+    //     }
+    //     else {
+    //         this.setState({
+    //             payload: this.props.data.payload
+    //         });
+    //     }
+    // }
 
     render () {
-        const userList = this.state.payload.map(user => <div key={user.id}><h3> {user.username}</h3> <p>{user.email}</p></div>);
+        console.log('this.props in render of Users', this.props);
+        const userList = this.props.data.payload.map(user => <div key={user.id}><h3> {user.username}</h3> <p>{user.email}</p></div>);
         return <div>
                 <h1>Users component</h1>
                 {userList}
