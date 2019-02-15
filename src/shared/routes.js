@@ -1,19 +1,35 @@
-import { fetchPosts } from './actions/postActions';
-import { fetchUsers } from './actions/userActions';
-import Users from './components/Users';
-import Posts from './components/Posts';
+import React from 'react';
+import { Switch, Route } from 'react-router';
+import App from './App';
+import Users, { getUsersData } from './components/Users';
+import Posts, { getPostsData } from './components/Posts';
+import PageNotFound from './components/PageNotFound';
 
-const routes =  [{
+export const routes =  [{
     path: '/',
     exact: true,
     component: Users,
     componentName: 'Users',
-    fetchData: (path = '') => fetchUsers(path.split('/').pop())
-},{
+    loadData: (store) => getUsersData(store)
+},
+{
     path: '/posts',
     component: Posts,
     componentName: 'Posts',
-    fetchData: (path = '') => fetchPosts(path.split('/').pop())
+    loadData: (store) => getPostsData(store)
+},
+{
+    component: PageNotFound
 }];
 
-export default routes;
+export default function Router() {
+    return (
+        <App>
+             <Switch>
+                {routes.map(route => (
+                    <Route key={route.path || 'PageNotFound'} {...route} />
+                ))}
+            </Switch>
+        </App>
+    );
+}

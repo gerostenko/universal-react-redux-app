@@ -1,39 +1,40 @@
 import React from 'react';
-//import { fetchPosts } from '../actions/postActions';
+import { fetchPostsRequest } from '../actions/postActions';
+import { connect } from 'react-redux';
 
 class Posts extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            payload: []
-        };
-       
+    componentDidMount() {
+        if(this.props.posts.length === 0) {
+            this.props.fetchPosts();
+        }
     }
 
-    // componentDidMount() {
-    //     if (this.props.data.type !== 'Posts') {
-    //         fetchPosts().then(response => {
-    //             this.setState({
-    //                 payload: response
-    //             });
-    //         });
-    //     }
-    //     else {
-    //         this.setState({
-    //             payload: this.props.data.payload
-    //         });
-    //     }
-    // }
-
+    renderPosts(posts) {
+        return posts.map(post => <div key={post.id}><h3> {post.title}</h3> <p>{post.body}</p></div>);
+    }
 
     render () {
-        console.log('this.props in render of Posts', this.props);
-        const posts = this.props.data.payload.map(post => <div key={post.id}><h3> {post.title}</h3> <p>{post.body}</p></div>);
         return <div>
                 <h1>Posts component</h1>
-                {posts}
+                 {this.renderPosts(this.props.posts)} 
             </div>;
-}
+    }       
 }
 
-export default Posts;
+const mapStateToProps = state => {
+    return {
+        posts: state.posts.list
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchPosts: () => dispatch(fetchPostsRequest())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+
+export function getPostsData(store) {
+    return store.dispatch(fetchPostsRequest());
+}
