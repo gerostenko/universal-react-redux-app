@@ -1,7 +1,7 @@
 {
-  "name": "gecaos-blog",
+  "name": "Universal React Redux App",
   "version": "0.1.0",
-  "description": "gecaos blog",
+  "description": "Universal React Redux App",
   "main": "dist/server.js",
   "scripts": {
     "test": "jest",
