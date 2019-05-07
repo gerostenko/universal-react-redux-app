@@ -1,5 +1,5 @@
 {
-  "name": "universal-react-redux-pp",
+  "name": "universal-react-redux-app",
   "version": "0.1.0",
   "description": "Universal React Redux App",
   "main": "dist/server.js",
